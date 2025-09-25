@@ -10,6 +10,20 @@ type VideoFromCloudinaryProps = {
     shouldAutoplay?: boolean;
 };
 
+type CloudinaryVideoData = {
+    title?: string;
+    alt?: string;
+    width?: number | string;
+    height?: number | string;
+    autoplay?: boolean;
+    mute?: boolean;
+    loop?: boolean;
+    caption?: string;
+    secure_url?: string;
+    url?: string;
+    public_id?: string;
+};
+
 const VideoFromCloudinary: FC<VideoFromCloudinaryProps> = ({
     cloudinaryAsset,
     componentId,
@@ -20,21 +34,22 @@ const VideoFromCloudinary: FC<VideoFromCloudinaryProps> = ({
     const videoUrl = cloudinaryAsset.elements.video_from_cloudinary?.value;
 
     // Parse the custom element value if it's a JSON string
-    let parsedVideoData: any = null;
+    let parsedVideoData: CloudinaryVideoData | null = null;
     try {
-        parsedVideoData = typeof videoUrl === 'string' ? JSON.parse(videoUrl) : videoUrl;
-        parsedVideoData = parsedVideoData[0];
+        const parsed = typeof videoUrl === 'string' ? JSON.parse(videoUrl) : videoUrl;
+        parsedVideoData = (parsed as CloudinaryVideoData[])?.[0] || (parsed as CloudinaryVideoData) || null;
     } catch (error) {
         console.warn('Failed to parse Cloudinary video data:', error);
     }
 
     // Extract video information from the parsed data
-    const videoTitle = parsedVideoData?.title || parsedVideoData?.alt || "Cloudinary Video";
-    const videoWidth = parsedVideoData?.width || "100%";
-    const videoHeight = parsedVideoData?.height || 590;
-    const shouldAutoplay = propShouldAutoplay !== undefined ? propShouldAutoplay : (parsedVideoData?.autoplay || true);
-    const shouldMute = parsedVideoData?.mute || true;
-    const shouldLoop = parsedVideoData?.loop || true;
+    const videoTitle = String(parsedVideoData?.title || parsedVideoData?.alt || "Cloudinary Video");
+    const videoWidth = String(parsedVideoData?.width || "100%");
+    const videoHeight = Number(parsedVideoData?.height) || 590;
+    const shouldAutoplay = propShouldAutoplay !== undefined ? propShouldAutoplay : (Boolean(parsedVideoData?.autoplay) || true);
+    const shouldMute = Boolean(parsedVideoData?.mute) || true;
+    const shouldLoop = Boolean(parsedVideoData?.loop) || true;
+
 
     // Get the final video URL
     const getFinalVideoUrl = () => {
@@ -88,14 +103,13 @@ const VideoFromCloudinary: FC<VideoFromCloudinaryProps> = ({
                         width={videoWidth}
                         height={videoHeight}
                         controls={false}
-
                         muted={shouldMute}
                         loop={shouldLoop}
                         playsInline
                     >
-                        <source src={finalVideoUrl} type="video/mp4" />
-                        <source src={finalVideoUrl} type="video/webm" />
-                        <source src={finalVideoUrl} type="video/ogg" />
+                        <source src={finalVideoUrl || ""} type="video/mp4" />
+                        <source src={finalVideoUrl || ""} type="video/webm" />
+                        <source src={finalVideoUrl || ""} type="video/ogg" />
                         Your browser does not support the video tag.
                     </video>
                     {parsedVideoData?.caption && (
