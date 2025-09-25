@@ -7,6 +7,7 @@ type VideoFromCloudinaryProps = {
     cloudinaryAsset: Replace<CloudinaryAsset, { elements: Partial<CloudinaryAsset["elements"]> }>;
     componentId: string;
     shouldAutoplay?: boolean;
+    showControls?: boolean;
 };
 
 type CloudinaryVideoData = {
@@ -26,7 +27,8 @@ type CloudinaryVideoData = {
 const VideoFromCloudinary: FC<VideoFromCloudinaryProps> = ({
     cloudinaryAsset,
     componentId,
-    shouldAutoplay: propShouldAutoplay
+    shouldAutoplay: propShouldAutoplay,
+    showControls = false
 }) => {
     // Extract the video URL from the custom element
     const videoUrl = cloudinaryAsset.elements.video_from_cloudinary?.value;
@@ -93,14 +95,14 @@ const VideoFromCloudinary: FC<VideoFromCloudinaryProps> = ({
             {...createSmartItemLink(componentId)}>
 
             {finalVideoUrl ? (
-                <figure className="w-full">
+                <figure className="">
                     <video
                         autoPlay={shouldAutoplay}
                         className="m-auto w-full"
                         title={videoTitle}
                         width={videoWidth}
                         height={videoHeight}
-                        controls={false}
+                        controls={showControls}
                         muted={shouldMute}
                         loop={shouldLoop}
                         playsInline

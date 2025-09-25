@@ -35,3 +35,4 @@ export * from "./service.ts";
 export * from "./tabsSectionCopy.ts";
 export * from "./twoColumnSectionCopy.ts";
 export * from "./video.ts";
+export * from "./videoCourse.ts";

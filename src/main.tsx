@@ -19,6 +19,7 @@ import Page from "./pages/Page.tsx";
 import BannerDetail from "./pages/BannerDetail.tsx";
 import LinkedInPreviewPage from "./pages/LinkedInPreviewPage.tsx";
 import NewsletterPreviewPage from "./pages/NewsletterPreviewPage.tsx";
+import VideoCoursePage from "./pages/VideoCoursePage.tsx";
 import Auth0ProviderWithRedirect from "./components/auth/AuthProviderWithRedirect.tsx";
 import { AppContextComponent } from "./context/AppContext.tsx";
 import { SmartLinkContextComponent } from "./context/SmartLinkContext.tsx";
@@ -65,6 +66,10 @@ const BaseRouting: RouteObject[] = [
   {
     path: "banner/:slug",
     Component: BannerDetail,
+  },
+  {
+    path: "videocourse/:slug",
+    Component: VideoCoursePage,
   },
   {
     path: ":slug",

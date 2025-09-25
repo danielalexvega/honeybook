@@ -43,6 +43,7 @@ export type ContentTypeCodenames =
   | "person"
   | "pin_up_section"
   | "service"
+  | "video_course"
   | "video";
 
 /**
@@ -169,6 +170,7 @@ export type ElementCodenames =
   | "url"
   | "video_from_cloudinary"
   | "video_link"
+  | "video"
   | "website"
   | "what_we_ll_cover"
   | "why_it_matters";

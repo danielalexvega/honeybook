@@ -58,8 +58,8 @@ export default {
 
     },
       fontFamily: {
-        sans: ['"Source Sans 3"', 'Arial', 'sans-serif'],
-        libre: ['"Abhaya Libre"', "Arial"]
+        sans: ['Roboto', 'sans-serif'],
+        libre: ['Roboto', 'sans-serif']
       }
     },
     container: {

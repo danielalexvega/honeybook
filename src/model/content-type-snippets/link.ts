@@ -15,7 +15,6 @@
 
 import type { Elements, Snippet } from "@kontent-ai/delivery-sdk";
 import type { CoreContentType } from "../system/index.ts";
-
 /**
  * Link Snippet
  *
