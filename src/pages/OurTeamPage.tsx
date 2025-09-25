@@ -14,7 +14,6 @@ import { IRefreshMessageData, IRefreshMessageMetadata, IUpdateMessageData, apply
 import { useCustomRefresh, useLivePreview } from "../context/SmartLinkContext";
 import { createElementSmartLink, createItemSmartLink } from "../utils/smartlink";
 import { Replace } from "../utils/types";
-import { useSuspenseQueries } from "@tanstack/react-query";
 
 const useTeamPage = (isPreview: boolean, lang: string | null) => {
   const { environmentId, apiKey } = useAppContext();
@@ -118,7 +117,7 @@ const useTeamMembers = (isPreview: boolean, lang: string | null) => {
 };
 
 const OurTeamPage: React.FC = () => {
-  const { environmentId, apiKey } = useAppContext();
+  // const { environmentId, apiKey } = useAppContext();
   const [searchParams] = useSearchParams();
   const isPreview = searchParams.get("preview") === "true";
   const lang = searchParams.get("lang");
@@ -126,38 +125,16 @@ const OurTeamPage: React.FC = () => {
   const teamPage = useTeamPage(isPreview, lang);  
   const teamMembers = useTeamMembers(isPreview, lang);  
 
-  const [teamPageData] = useSuspenseQueries({
-    queries: [
-      {
-        queryKey: ["landing_page"],
-        queryFn: () =>
-          createClient(environmentId, apiKey, isPreview)
-            .items()
-            .type("landing_page")
-            .limitParameter(1)
-            .toPromise()
-            .then(res =>
-              res.data.items[0] as Replace<Page, { elements: Partial<Page["elements"]> }> ?? null
-            )
-            .catch((err) => {
-              if (err instanceof DeliveryError) {
-                return null;
-              }
-              throw err;
-            }),
-      },
-    ],
-  });
-
   const onRefresh = useCallback(
     (_: IRefreshMessageData, metadata: IRefreshMessageMetadata, originalRefresh: () => void) => {
       if (metadata.manualRefresh) {
         originalRefresh();
       } else {
-        teamPageData.refetch();
+        // The useTeamPage hook handles its own data fetching, so we don't need to refetch here
+        // The live preview system will handle updates automatically
       }
     },
-    [teamPage],
+    [],
   );
 
   useCustomRefresh(onRefresh);
@@ -219,8 +196,6 @@ const OurTeamPage: React.FC = () => {
                 alt: member.elements.image.value[0]?.description
                   ?? member.elements.first_name.value + " " + member.elements.last_name.value,
               },
-              prefix: member.elements.prefix.value,
-              suffix: member.elements.suffixes.value,
               firstName: member.elements.first_name.value,
               lastName: member.elements.last_name.value,
               position: member.elements.job_title.value,

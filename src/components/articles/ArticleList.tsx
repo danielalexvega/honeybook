@@ -11,7 +11,6 @@ type ArticleData = Readonly<{
   }>;
   title: string;
   introduction: string;
-  publishDate: string;
   topics: ReadonlyArray<string>;
   urlSlug: string;
   itemId: string;
@@ -35,7 +34,6 @@ const ArticleList: React.FC<ArticleListProps> = ({ articles }) => {
                   image: article.image,
                   title: article.title,
                   introduction: article.introduction,
-                  publishDate: article.publishDate,
                   topics: article.topics,
                   itemId: article.itemId
                 }}

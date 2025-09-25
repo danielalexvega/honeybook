@@ -6,9 +6,9 @@
 *  
 * -------------------------------------------------------------------------------
 * 
-* Project: Karma Health Demo
+* Project: Honeybook
 * Environment: Production
-* Id: d89e24b9-c2c4-0153-3e3b-8d8abd406750
+* Id: f58e1d39-d212-0043-310b-606736fbccb8
 * 
 * -------------------------------------------------------------------------------
 **/
@@ -17,7 +17,7 @@ import type { Elements } from "@kontent-ai/delivery-sdk";
 import type { CoreContentType } from "../system/index.ts";
 
 /**
- * Disclaimer
+ * ➕ Disclaimer
  *
  * Id: 01c917db-9ea5-4452-9b23-57a37f56a2c2
  * Codename: disclaimer
@@ -57,12 +57,12 @@ export type Disclaimer = CoreContentType<
 >;
 
 /**
- * Type representing all available element codenames for Disclaimer
+ * Type representing all available element codenames for ➕ Disclaimer
  */
 export type DisclaimerElementCodenames = "headline" | "subheadline" | "type";
 
 /**
- * Type guard for Disclaimer
+ * Type guard for ➕ Disclaimer
  *
  * Id: 01c917db-9ea5-4452-9b23-57a37f56a2c2
  * Codename: disclaimer

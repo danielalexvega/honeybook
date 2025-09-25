@@ -13,8 +13,7 @@ import { LanguageCodenames } from "../model";
 import { IRefreshMessageData, IRefreshMessageMetadata, IUpdateMessageData, applyUpdateOnItemAndLoadLinkedItems } from "@kontent-ai/smart-link";
 import { useCustomRefresh, useLivePreview } from "../context/SmartLinkContext";
 import { createElementSmartLink, createItemSmartLink } from "../utils/smartlink";
-import { useSuspenseQueries } from "@tanstack/react-query";
-import { Replace } from "../utils/types";
+// import { Replace } from "../utils/types";
 
 const useBlogPage = (isPreview: boolean, lang: string | null) => {
   const { environmentId, apiKey } = useAppContext();
@@ -117,7 +116,7 @@ const useBlogPosts = (isPreview: boolean, lang: string | null) => {
 };
 
 const BlogPage: React.FC = () => {
-  const { environmentId, apiKey } = useAppContext();
+  // const { environmentId, apiKey } = useAppContext();
   const [searchParams] = useSearchParams();
   const isPreview = searchParams.get("preview") === "true";
   const lang = searchParams.get("lang");
@@ -125,38 +124,16 @@ const BlogPage: React.FC = () => {
   const blogPage = useBlogPage(isPreview, lang);
   const blogPosts = useBlogPosts(isPreview, lang);
 
-  const [blogPageData] = useSuspenseQueries({
-    queries: [
-      {
-        queryKey: ["landing_page"],
-        queryFn: () =>
-          createClient(environmentId, apiKey, isPreview)
-            .items()
-            .type("landing_page")
-            .limitParameter(1)
-            .toPromise()
-            .then(res =>
-              res.data.items[0] as Replace<Page, { elements: Partial<Page["elements"]> }> ?? null
-            )
-            .catch((err) => {
-              if (err instanceof DeliveryError) {
-                return null;
-              }
-              throw err;
-            }),
-      },
-    ],
-  });
-
   const onRefresh = useCallback(
     (_: IRefreshMessageData, metadata: IRefreshMessageMetadata, originalRefresh: () => void) => {
       if (metadata.manualRefresh) {
         originalRefresh();
       } else {
-        blogPageData.refetch();
+        // The useBlogPage hook handles its own data fetching, so we don't need to refetch here
+        // The live preview system will handle updates automatically
       }
     },
-    [blogPage],
+    [],
   );
 
   useCustomRefresh(onRefresh);

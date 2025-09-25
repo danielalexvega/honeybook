@@ -136,16 +136,7 @@ const ArticleDetailPage: React.FC = () => {
     return <div className="flex-grow" />;
   }
 
-  const formattedDate = article.elements.publish_date.value
-    ? new Date(article.elements.publish_date.value).toLocaleDateString(
-      article.system.language === "es-ES" ? "es-ES" : "en-US",
-      {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      },
-    )
-    : "";
+
 
   const author = article.elements.author.linkedItems[0];
   const authorName = author ? `${author.elements.first_name?.value || ""} ${author.elements.last_name?.value || ""}`.trim() : "";
@@ -166,11 +157,8 @@ const ArticleDetailPage: React.FC = () => {
             </h1>
             {author && (
               <HeroImageAuthorCard
-                prefix={author.elements.prefix?.value}
                 firstName={author.elements.first_name?.value || ""}
                 lastName={author.elements.last_name?.value || ""}
-                suffix={author.elements.suffixes?.value}
-                publishDate={formattedDate}
                 image={{
                   url: author.elements.image?.value[0]?.url || "",
                   alt: author.elements.image?.value[0]?.description || `Photo of ${authorName}`,
@@ -226,10 +214,8 @@ const ArticleDetailPage: React.FC = () => {
             </h2>
             <div className="text-body-lg text-body-color">
               <PersonCard
-                prefix={author.elements.prefix?.value}
                 firstName={author.elements.first_name?.value || ""}
                 lastName={author.elements.last_name?.value || ""}
-                suffix={author.elements.suffixes?.value}
                 jobTitle={author.elements.job_title?.value || ""}
                 image={{
                   url: author.elements.image?.value[0]?.url || "",
@@ -256,7 +242,6 @@ const ArticleDetailPage: React.FC = () => {
                 },
                 urlSlug: article.elements.url_slug.value,
                 introduction: article.elements.introduction.value,
-                publishDate: article.elements.publish_date.value ?? "",
                 topics: article.elements.topics.value.map(topic => topic.name),
                 itemId: article.system.id,
               }))}

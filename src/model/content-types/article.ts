@@ -6,9 +6,9 @@
 *  
 * -------------------------------------------------------------------------------
 * 
-* Project: Karma Health Demo
+* Project: Honeybook
 * Environment: Production
-* Id: d89e24b9-c2c4-0153-3e3b-8d8abd406750
+* Id: f58e1d39-d212-0043-310b-606736fbccb8
 * 
 * -------------------------------------------------------------------------------
 **/
@@ -20,7 +20,7 @@ import type { Metadata } from "../content-type-snippets/index.ts";
 import type { Person } from "./index.ts";
 
 /**
- * Article
+ * ✏️ Article
  *
  * Id: d622fc28-5202-511a-9dbf-a3ee363b6c7c
  * Codename: article
@@ -35,17 +35,19 @@ export type Article = CoreContentType<
      * Required: true
      * Codename: title
      * Id: ad06c69a-9ccd-5d8c-b2de-b6a9f83d00fc
+     * Guidelines: Address a pain point of the reader. Make it SEO-optimized and include the focus keyword.  Try Headline analyzer to check your title: https://capitalizemytitle.com/headline-analyzer/
      */
     readonly title: Elements.TextElement;
     /**
-     * Publish Date
+     * Short Title
      *
-     * Type: date_time
+     * Type: text
      * Required: true
-     * Codename: publish_date
-     * Id: abdf08ea-55f0-5460-96e0-391f7471c7e9
+     * Codename: short_title
+     * Id: 95bbdfc9-7208-4c08-bb17-3dfa32d99667
+     * Guidelines: Provide a title to show in the left navigation. The article URL is generated from its Short title.
      */
-    readonly publish_date: Elements.DateTimeElement;
+    readonly short_title: Elements.TextElement;
     /**
      * Introduction
      *
@@ -53,28 +55,11 @@ export type Article = CoreContentType<
      * Required: true
      * Codename: introduction
      * Id: c3fc1a88-5577-5130-b0aa-b1837c009ba6
+     * Guidelines: Interest the reader why they should spend time with this article. What’s in it for them? Be simple, short, positive, and within one paragraph.
      */
     readonly introduction: Elements.TextElement;
     /**
-     * Author
-     *
-     * Type: modular_content
-     * Required: false
-     * Codename: author
-     * Id: 645445ef-c1a0-4eec-bbec-fcb2ce2e1862
-     */
-    readonly author: Elements.LinkedItemsElement<Person>;
-    /**
-     * Image
-     *
-     * Type: asset
-     * Required: true
-     * Codename: image
-     * Id: 8c501358-d0f7-5959-95bd-2991f1215e33
-     */
-    readonly image: Elements.AssetsElement;
-    /**
-     * Body Copy
+     * Content
      *
      * Type: rich_text
      * Required: true
@@ -110,12 +95,30 @@ export type Article = CoreContentType<
      */
     readonly related_articles: Elements.LinkedItemsElement<Article>;
     /**
+     * Image
+     *
+     * Type: asset
+     * Required: true
+     * Codename: image
+     * Id: 8c501358-d0f7-5959-95bd-2991f1215e33
+     */
+    readonly image: Elements.AssetsElement;
+    /**
+     * Author
+     *
+     * Type: modular_content
+     * Required: false
+     * Codename: author
+     * Id: 645445ef-c1a0-4eec-bbec-fcb2ce2e1862
+     */
+    readonly author: Elements.LinkedItemsElement<Person>;
+    /**
      * URL slug
      *
      * Type: url_slug
-     * Required: false
+     * Required: true
      * Codename: url_slug
-     * Id: f95032a0-481e-4297-ad58-76fa2eb7edaf
+     * Id: 33f5f8e9-aca2-4f52-a3b2-68ea6337ed59
      */
     readonly url_slug: Elements.UrlSlugElement;
   } & Metadata,
@@ -123,25 +126,25 @@ export type Article = CoreContentType<
 >;
 
 /**
- * Type representing all available element codenames for Article
+ * Type representing all available element codenames for ✏️ Article
  */
 export type ArticleElementCodenames =
   | "title"
-  | "publish_date"
+  | "short_title"
   | "introduction"
-  | "author"
-  | "image"
   | "body_copy"
   | "article_type"
   | "topics"
   | "related_articles"
+  | "image"
+  | "author"
   | "metadata__title"
   | "metadata__keywords"
   | "metadata__description"
   | "url_slug";
 
 /**
- * Type guard for Article
+ * Type guard for ✏️ Article
  *
  * Id: d622fc28-5202-511a-9dbf-a3ee363b6c7c
  * Codename: article

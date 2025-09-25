@@ -16,10 +16,8 @@ import { createElementSmartLink, createItemSmartLink } from "../utils/smartlink"
 import { useQuery } from "@tanstack/react-query";
 
 interface TeamMemberCardProps {
-  prefix?: string;
   firstName: string;
   lastName: string;
-  suffix?: string;
   jobTitle: string;
   image: {
     url?: string;
@@ -29,10 +27,8 @@ interface TeamMemberCardProps {
 }
 
 const TeamMemberCard: React.FC<TeamMemberCardProps> = React.memo(({ 
-  prefix, 
   firstName, 
-  lastName, 
-  suffix, 
+  lastName,  
   jobTitle, 
   image, 
   codename 
@@ -48,9 +44,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = React.memo(({
           to={createPreviewLink(`/our-team/${codename}`, isPreview)}
           className="text-heading-4 underline text-burgundy hover:text-azure"
         >
-          {prefix && <span>{prefix}</span>}
           {firstName} {lastName}
-          {suffix && <span>, {suffix}</span>}
         </NavLink>
         <p className="text-small text-grey text-center">
           {jobTitle}
@@ -137,10 +131,8 @@ const ServiceDetail: React.FC = () => {
   const teamMembers = useMemo(() => 
     service?.elements.team.linkedItems.map((person: Person) => ({
       id: person.system.id,
-      prefix: person.elements.prefix?.value,
       firstName: person.elements.first_name?.value || "",
       lastName: person.elements.last_name?.value || "",
-      suffix: person.elements.suffixes?.value,
       jobTitle: person.elements.job_title?.value || "",
       image: {
         url: person.elements.image?.value[0]?.url || "",

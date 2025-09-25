@@ -6,9 +6,9 @@
 *  
 * -------------------------------------------------------------------------------
 * 
-* Project: Karma Health Demo
+* Project: Honeybook
 * Environment: Production
-* Id: d89e24b9-c2c4-0153-3e3b-8d8abd406750
+* Id: f58e1d39-d212-0043-310b-606736fbccb8
 * 
 * -------------------------------------------------------------------------------
 **/
@@ -82,12 +82,12 @@ export type Service = CoreContentType<
      */
     readonly medical_specialties: Elements.TaxonomyElement<MedicalSpecialties, "medical_specialties">;
     /**
-     * URL Slug
+     * URL slug
      *
      * Type: url_slug
-     * Required: false
+     * Required: true
      * Codename: url_slug
-     * Id: 83850919-af92-4bef-9f7d-d8bd3df7efe7
+     * Id: 3c27fdbf-6286-4212-972c-8e5d6f08a857
      */
     readonly url_slug: Elements.UrlSlugElement;
   },

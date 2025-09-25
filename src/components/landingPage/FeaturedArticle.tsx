@@ -11,7 +11,6 @@ type FeaturedArticleProps = Readonly<{
       alt: string;
     }>;
     title: string;
-    publishDate: string;
     introduction: string;
     topics: ReadonlyArray<string>;
     itemId: string;
@@ -37,16 +36,7 @@ const FeaturedArticle: React.FC<FeaturedArticleProps> = ({ article, displayFeatu
           <h2 className="text-center lg:text-left text-heading-2 font-semibold text-burgundy">
             {article.title}
           </h2>
-          <p className="text-center lg:text-left text-gray-light mt-6 text-body-md">
-            {article.publishDate
-              && `Published on ${
-                new Date(article.publishDate).toLocaleDateString("en-US", {
-                  month: "short",
-                  year: "numeric",
-                  day: "numeric",
-                })
-              }`}
-          </p>
+         
           <Tags
             tags={article.topics}
             className="mt-4"

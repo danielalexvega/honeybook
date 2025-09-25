@@ -46,9 +46,10 @@ const FeaturedEvent: FC<FeaturedEventProps> = ({ event }) => {
               }`}
             </p>
             <Tags
-              tags={[...event.elements.event_type?.value ?? [], ...event.elements.event_topic?.value ?? []].map(t =>
-                t.name
-              )}
+              tags={[
+                ...(event.elements.course_level?.value?.[0] ? [event.elements.course_level.value[0].name] : []),
+                ...(event.elements.frequency?.value?.[0] ? [event.elements.frequency.value[0].name] : [])
+              ]}
               className="mt-4"
             />
             <div className="mt-4">

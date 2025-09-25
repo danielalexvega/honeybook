@@ -6,9 +6,9 @@
 *  
 * -------------------------------------------------------------------------------
 * 
-* Project: Karma Health Demo
+* Project: Honeybook
 * Environment: Production
-* Id: d89e24b9-c2c4-0153-3e3b-8d8abd406750
+* Id: f58e1d39-d212-0043-310b-606736fbccb8
 * 
 * -------------------------------------------------------------------------------
 **/
@@ -18,7 +18,7 @@ import type { CoreContentType } from "../system/index.ts";
 import type { Metadata } from "../content-type-snippets/index.ts";
 
 /**
- * Blog Post
+ * ✏️ Blog Post
  *
  * Id: 336302c0-0634-4974-b33b-8c7b0469e837
  * Codename: blog_post
@@ -54,12 +54,12 @@ export type BlogPost = CoreContentType<
      */
     readonly body: Elements.RichTextElement<CoreContentType>;
     /**
-     * URL Slug
+     * URL slug
      *
      * Type: url_slug
      * Required: true
      * Codename: url_slug
-     * Id: 574faf3f-4f42-430e-9227-a361a237ce61
+     * Id: cfdddb6d-ae75-431b-ac02-af463468d86b
      */
     readonly url_slug: Elements.UrlSlugElement;
   } & Metadata,
@@ -67,7 +67,7 @@ export type BlogPost = CoreContentType<
 >;
 
 /**
- * Type representing all available element codenames for Blog Post
+ * Type representing all available element codenames for ✏️ Blog Post
  */
 export type BlogPostElementCodenames =
   | "title"
@@ -79,7 +79,7 @@ export type BlogPostElementCodenames =
   | "url_slug";
 
 /**
- * Type guard for Blog Post
+ * Type guard for ✏️ Blog Post
  *
  * Id: 336302c0-0634-4974-b33b-8c7b0469e837
  * Codename: blog_post

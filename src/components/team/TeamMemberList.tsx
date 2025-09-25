@@ -7,8 +7,6 @@ interface TeamMemberListProps {
       url: string;
       alt: string;
     };
-    prefix: string;
-    suffix: string;
     firstName: string;
     lastName: string;
     position: string;
@@ -24,8 +22,6 @@ const TeamMemberList: FC<TeamMemberListProps> = ({ teamMembers }) => {
         <TeamListItem
           key={member.link}
           image={member.image}
-          prefix={member.prefix}
-          suffix={member.suffix}
           firstName={member.firstName}
           lastName={member.lastName}
           title={member.position}

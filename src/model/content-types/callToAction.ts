@@ -6,9 +6,9 @@
 *  
 * -------------------------------------------------------------------------------
 * 
-* Project: Karma Health Demo
+* Project: Honeybook
 * Environment: Production
-* Id: d89e24b9-c2c4-0153-3e3b-8d8abd406750
+* Id: f58e1d39-d212-0043-310b-606736fbccb8
 * 
 * -------------------------------------------------------------------------------
 **/
@@ -18,7 +18,7 @@ import type { CoreContentType } from "../system/index.ts";
 import type { Page } from "./index.ts";
 
 /**
- * Call to action
+ * ➕ Call to action
  *
  * Id: a9196b8d-6320-4feb-aa25-14637761dcc6
  * Codename: call_to_action
@@ -85,7 +85,7 @@ export type CallToAction = CoreContentType<
 >;
 
 /**
- * Type representing all available element codenames for Call to action
+ * Type representing all available element codenames for ➕ Call to action
  */
 export type CallToActionElementCodenames =
   | "headline"
@@ -96,7 +96,7 @@ export type CallToActionElementCodenames =
   | "button_link";
 
 /**
- * Type guard for Call to action
+ * Type guard for ➕ Call to action
  *
  * Id: a9196b8d-6320-4feb-aa25-14637761dcc6
  * Codename: call_to_action

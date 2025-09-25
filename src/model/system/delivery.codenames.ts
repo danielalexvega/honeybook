@@ -6,9 +6,9 @@
 *  
 * -------------------------------------------------------------------------------
 * 
-* Project: Karma Health Demo
+* Project: Honeybook
 * Environment: Production
-* Id: d89e24b9-c2c4-0153-3e3b-8d8abd406750
+* Id: f58e1d39-d212-0043-310b-606736fbccb8
 * 
 * -------------------------------------------------------------------------------
 **/
@@ -22,46 +22,83 @@ export type LanguageCodenames = "de-DE" | "default" | "es-ES";
  * Type representing all content types
  */
 export type ContentTypeCodenames =
+  | "__accordion__copy_"
+  | "__accordion_item"
+  | "__link"
+  | "__tabs_section__copy_"
+  | "__two_column_section__copy_"
+  | "_navigation"
   | "article"
   | "blog_post"
   | "call_to_action"
+  | "cloudinary_asset"
+  | "course"
   | "disclaimer"
   | "event"
+  | "faq_section"
+  | "faq"
   | "landing_page"
+  | "n2_column_section"
   | "page"
   | "person"
+  | "pin_up_section"
   | "service"
   | "video";
 
 /**
  * Type representing all collections
  */
-export type CollectionCodenames = "default";
+export type CollectionCodenames =
+  | "academic_content"
+  | "customer_resources"
+  | "default"
+  | "marketing_resources"
+  | "operations";
 
 /**
  * Type representing all workflows
  */
-export type WorkflowCodenames = "default";
+export type WorkflowCodenames = "academic_resources" | "biographies" | "default" | "patient_resources";
 
 /**
  * Type representing all taxonomies
  */
 export type TaxonomyCodenames =
   | "article_type"
+  | "course_level"
   | "event_topic"
   | "event_type"
   | "general_healthcare_topics"
-  | "medical_specialties";
+  | "medical_specialties"
+  | "topics";
 
 /**
  * Type representing all worksflow steps across all workflows
  */
-export type WorkflowStepCodenames = "archived" | "draft" | "published" | "scheduled";
+export type WorkflowStepCodenames =
+  | "archived"
+  | "copy_review"
+  | "draft_97d445e"
+  | "draft_a8b162c"
+  | "draft_b242d4d"
+  | "draft"
+  | "legal_review"
+  | "marketing_review"
+  | "medical_review"
+  | "peer_review"
+  | "published"
+  | "reviewed_1778942"
+  | "reviewed"
+  | "scheduled"
+  | "staff_member_review"
+  | "translation";
 
 /**
  * Type representing all element codenames across all content types
  */
 export type ElementCodenames =
+  | "accordion_items"
+  | "answer"
   | "article_type"
   | "author"
   | "autoplay"
@@ -71,21 +108,40 @@ export type ElementCodenames =
   | "button_label"
   | "button_link"
   | "caption"
+  | "class_length"
+  | "cloudinary_video"
+  | "color"
+  | "content"
+  | "course_author"
+  | "course_body"
+  | "course_image"
+  | "course_level"
+  | "course_title"
   | "description"
+  | "display_text"
   | "email"
   | "end_date"
-  | "event_topic"
-  | "event_type"
-  | "featured_content"
+  | "faq_section"
+  | "faqs"
+  | "featured_courses"
   | "first_name"
+  | "frequency"
   | "guidelines"
+  | "header_navigation"
   | "headline"
   | "hero_image"
   | "image_position"
   | "image"
+  | "instructor"
   | "introduction"
   | "job_title"
   | "last_name"
+  | "left_column_body"
+  | "length"
+  | "link__guidelines"
+  | "link__link_to_content_item"
+  | "link__link_to_web_url"
+  | "link_url"
   | "medical_specialties"
   | "metadata__description"
   | "metadata__keywords"
@@ -93,19 +149,26 @@ export type ElementCodenames =
   | "metadata"
   | "name"
   | "phone"
-  | "prefix"
-  | "publish_date"
+  | "question"
   | "related_articles"
+  | "right_column_body"
+  | "short_title"
   | "start_date"
   | "subheadline"
   | "subpages"
-  | "suffixes"
   | "summary"
+  | "tab_content"
+  | "tab_title"
+  | "tabs"
   | "team"
   | "title"
   | "topics"
   | "type"
+  | "upcoming_events"
   | "url_slug"
   | "url"
+  | "video_from_cloudinary"
   | "video_link"
-  | "website";
+  | "website"
+  | "what_we_ll_cover"
+  | "why_it_matters";

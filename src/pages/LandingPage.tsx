@@ -1,19 +1,19 @@
 import { DeliveryError } from "@kontent-ai/delivery-sdk";
 
-import HeroImage from "../components/HeroImage";
+// import HeroImage from "../components/HeroImage";
 import PageContent from "../components/PageContent";
 import PageSection from "../components/PageSection";
+import VideoFromCloudinary from "../components/VideoFromCloudinary";
 import "../index.css";
 import { LanguageCodenames, type LandingPage } from "../model";
 import { createClient } from "../utils/client";
 import { FC, useCallback, useState, useEffect } from "react";
 import { useAppContext } from "../context/AppContext";
 import { Replace } from "../utils/types";
-import FeaturedContent from "../components/landingPage/FeaturedContent";
+// import FeaturedContent from "../components/landingPage/FeaturedContent";
 import { useSearchParams } from "react-router-dom";
 import { useCustomRefresh, useLivePreview } from "../context/SmartLinkContext";
 import { IRefreshMessageData, IRefreshMessageMetadata, IUpdateMessageData, applyUpdateOnItemAndLoadLinkedItems } from "@kontent-ai/smart-link";
-import { useSuspenseQueries } from "@tanstack/react-query";
 
 const useLandingPage = (isPreview: boolean, lang: string | null) => {
   const { environmentId, apiKey, collection } = useAppContext();
@@ -70,47 +70,23 @@ const useLandingPage = (isPreview: boolean, lang: string | null) => {
 };
 
 const LandingPage: FC = () => {
-  const { environmentId, apiKey, collection } = useAppContext();
   const [searchParams] = useSearchParams();
   const isPreview = searchParams.get("preview") === "true";
   const lang = searchParams.get("lang");
 
   const landingPage = useLandingPage(isPreview, lang);
-
-  const [landingPageData] = useSuspenseQueries({
-    queries: [
-      {
-        queryKey: ["landing_page"],
-        queryFn: () =>
-          createClient(environmentId, apiKey, isPreview)
-            .items()
-            .type("landing_page")
-            .limitParameter(1)
-            .depthParameter(3)
-            .equalsFilter("system.collection", collection ?? "patient_resources")
-            .toPromise()
-            .then(res =>
-              res.data.items[0] as Replace<LandingPage, { elements: Partial<LandingPage["elements"]> }> ?? null
-            )
-            .catch((err) => {
-              if (err instanceof DeliveryError) {
-                return null;
-              }
-              throw err;
-            }),
-      },
-    ],
-  });
+  console.log(landingPage);
 
   const onRefresh = useCallback(
     (_: IRefreshMessageData, metadata: IRefreshMessageMetadata, originalRefresh: () => void) => {
       if (metadata.manualRefresh) {
         originalRefresh();
       } else {
-        landingPageData.refetch();
+        // The useLandingPage hook handles its own data fetching, so we don't need to refetch here
+        // The live preview system will handle updates automatically
       }
     },
-    [landingPage],
+    [],
   );
 
   useCustomRefresh(onRefresh);
@@ -121,20 +97,18 @@ const LandingPage: FC = () => {
 
   return (
     <div className="flex-grow">
-      <PageSection color="bg-burgundy">
-        <HeroImage
-          data={{
-            headline: landingPage.elements.headline,
-            subheadline: landingPage.elements.subheadline,
-            heroImage: landingPage.elements.hero_image,
-            itemId: landingPage.system.id
-          }}
+      {landingPage.elements.cloudinary_video?.linkedItems[0]?.elements.video_from_cloudinary && (
+        <VideoFromCloudinary
+          cloudinaryAsset={landingPage.elements.cloudinary_video.linkedItems[0]}
+          componentId={landingPage.system.id}
+          componentName="Cloudinary Video"
+          shouldAutoplay={true}
         />
-      </PageSection>
+      )}
+
       <PageSection color="bg-white">
         <PageContent body={landingPage.elements.body_copy!} itemId={landingPage.system.id} elementName="body_copy" />
       </PageSection>
-      <FeaturedContent featuredContent={landingPage.elements.featured_content!} parentId={landingPage.system.id}></FeaturedContent>
     </div>
   );
 };

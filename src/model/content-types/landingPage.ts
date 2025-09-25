@@ -6,19 +6,19 @@
 *  
 * -------------------------------------------------------------------------------
 * 
-* Project: Karma Health Demo
+* Project: Honeybook
 * Environment: Production
-* Id: d89e24b9-c2c4-0153-3e3b-8d8abd406750
+* Id: f58e1d39-d212-0043-310b-606736fbccb8
 * 
 * -------------------------------------------------------------------------------
 **/
 
 import type { Elements } from "@kontent-ai/delivery-sdk";
 import type { CoreContentType } from "../system/index.ts";
-import type { Video, Disclaimer, CallToAction, Event, Article, Page } from "./index.ts";
+import type { Video, Disclaimer, CallToAction, Course, CloudinaryAsset } from "./index.ts";
 
 /**
- * Landing Page
+ * 🏠 Landing Page
  *
  * Id: cc5060fc-1b09-40b6-a07f-5eb885301747
  * Codename: landing_page
@@ -26,33 +26,6 @@ import type { Video, Disclaimer, CallToAction, Event, Article, Page } from "./in
 export type LandingPage = CoreContentType<
   LandingPageElementCodenames,
   {
-    /**
-     * Headline
-     *
-     * Type: text
-     * Required: true
-     * Codename: headline
-     * Id: 19b37bc8-cd8a-43a2-a647-61732524abed
-     */
-    readonly headline: Elements.TextElement;
-    /**
-     * Subheadline
-     *
-     * Type: text
-     * Required: true
-     * Codename: subheadline
-     * Id: 1f3be25d-1bcf-4e59-9003-14490f82f338
-     */
-    readonly subheadline: Elements.TextElement;
-    /**
-     * Hero Image
-     *
-     * Type: asset
-     * Required: true
-     * Codename: hero_image
-     * Id: 5030bc21-47d3-451f-b5e7-d59d8d7a2439
-     */
-    readonly hero_image: Elements.AssetsElement;
     /**
      * Body Copy
      *
@@ -63,40 +36,43 @@ export type LandingPage = CoreContentType<
      */
     readonly body_copy: Elements.RichTextElement<Video | Disclaimer | CallToAction>;
     /**
-     * Featured Content
+     * Featured Courses
      *
      * Type: modular_content
      * Required: false
-     * Codename: featured_content
-     * Id: 38cf004b-3054-43ff-9b7a-f0734b1d35f1
+     * Codename: featured_courses
+     * Id: fda97e1d-79aa-4b5c-91e5-3c83726a3a8e
      */
-    readonly featured_content: Elements.LinkedItemsElement<Event | Article | CallToAction>;
+    readonly featured_courses: Elements.LinkedItemsElement<Course>;
     /**
-     * Subpages
+     * Upcoming Events
      *
-     * Type: subpages
+     * Type: modular_content
      * Required: false
-     * Codename: subpages
-     * Id: 9d5080db-f2bb-41a1-bcbe-11786ee3a59d
+     * Codename: upcoming_events
+     * Id: 8ceecdd8-183f-4379-a335-078a85d86dc1
      */
-    readonly subpages: Elements.LinkedItemsElement<Page>;
+    readonly upcoming_events: Elements.LinkedItemsElement<CoreContentType>;
+    /**
+     * Cloudinary Video
+     *
+     * Type: modular_content
+     * Required: false
+     * Codename: cloudinary_video
+     * Id: 72877d7e-3334-4b46-8b06-7c5c81c3f97d
+     */
+    readonly cloudinary_video: Elements.LinkedItemsElement<CloudinaryAsset>;
   },
   "landing_page"
 >;
 
 /**
- * Type representing all available element codenames for Landing Page
+ * Type representing all available element codenames for 🏠 Landing Page
  */
-export type LandingPageElementCodenames =
-  | "headline"
-  | "subheadline"
-  | "hero_image"
-  | "body_copy"
-  | "featured_content"
-  | "subpages";
+export type LandingPageElementCodenames = "body_copy" | "featured_courses" | "upcoming_events" | "cloudinary_video";
 
 /**
- * Type guard for Landing Page
+ * Type guard for 🏠 Landing Page
  *
  * Id: cc5060fc-1b09-40b6-a07f-5eb885301747
  * Codename: landing_page

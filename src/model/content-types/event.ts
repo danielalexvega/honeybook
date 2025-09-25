@@ -6,16 +6,17 @@
 *  
 * -------------------------------------------------------------------------------
 * 
-* Project: Karma Health Demo
+* Project: Honeybook
 * Environment: Production
-* Id: d89e24b9-c2c4-0153-3e3b-8d8abd406750
+* Id: f58e1d39-d212-0043-310b-606736fbccb8
 * 
 * -------------------------------------------------------------------------------
 **/
 
 import type { Elements } from "@kontent-ai/delivery-sdk";
 import type { CoreContentType } from "../system/index.ts";
-import type { EventType, EventTopic } from "../taxonomies/index.ts";
+import type { CourseLevel } from "../taxonomies/index.ts";
+import type { Person, FAQSection } from "./index.ts";
 
 /**
  * Event
@@ -35,6 +36,44 @@ export type Event = CoreContentType<
      * Id: 60502ad7-d552-5435-af46-6f4df84c3ddd
      */
     readonly name: Elements.TextElement;
+    /**
+     * Instructor
+     *
+     * Type: modular_content
+     * Required: false
+     * Codename: instructor
+     * Id: ee9877b9-3db0-4eb8-8461-8442f812f356
+     * Guidelines: Who is leading the event?
+     */
+    readonly instructor: Elements.LinkedItemsElement<Person>;
+    /**
+     * Class Length
+     *
+     * Type: number
+     * Required: true
+     * Codename: class_length
+     * Id: a66eeb79-bc1f-4a7d-96c3-4c3deb8e3b59
+     * Guidelines: Write the number in minutes (Ex. 60)
+     */
+    readonly class_length: Elements.NumberElement;
+    /**
+     * Course Level
+     *
+     * Type: taxonomy
+     * Required: true
+     * Codename: course_level
+     * Id: 1252e7c2-4931-4e21-827c-96f275bf5c65
+     */
+    readonly course_level: Elements.TaxonomyElement<CourseLevel, "course_level">;
+    /**
+     * Frequency
+     *
+     * Type: multiple_choice
+     * Required: false
+     * Codename: frequency
+     * Id: 0b11b045-51bf-496b-8d62-0a5bdc39a4a9
+     */
+    readonly frequency: Elements.MultipleChoiceElement<"weekly" | "monthly" | "once">;
     /**
      * Image
      *
@@ -57,29 +96,11 @@ export type Event = CoreContentType<
      * End Date
      *
      * Type: date_time
-     * Required: true
+     * Required: false
      * Codename: end_date
      * Id: a00fecf1-c7ff-5bed-8c40-2eba7460170a
      */
     readonly end_date: Elements.DateTimeElement;
-    /**
-     * Event Type
-     *
-     * Type: taxonomy
-     * Required: true
-     * Codename: event_type
-     * Id: aa177aeb-9cd0-5a3a-a6b6-ca055fe2cae3
-     */
-    readonly event_type: Elements.TaxonomyElement<EventType, "event_type">;
-    /**
-     * Event Topic
-     *
-     * Type: taxonomy
-     * Required: true
-     * Codename: event_topic
-     * Id: 0da8a57d-a1d5-5b1e-9b6e-6d28dc1a6caa
-     */
-    readonly event_topic: Elements.TaxonomyElement<EventTopic, "event_topic">;
     /**
      * Description
      *
@@ -89,6 +110,33 @@ export type Event = CoreContentType<
      * Id: 2a7a8e84-274c-5339-afd2-4865b643fbb2
      */
     readonly description: Elements.RichTextElement<CoreContentType>;
+    /**
+     * What We'll Cover
+     *
+     * Type: rich_text
+     * Required: false
+     * Codename: what_we_ll_cover
+     * Id: 0a8ceb5e-b8cb-4cde-87f2-9c490083b594
+     */
+    readonly what_we_ll_cover: Elements.RichTextElement<CoreContentType>;
+    /**
+     * Why It Matters
+     *
+     * Type: rich_text
+     * Required: false
+     * Codename: why_it_matters
+     * Id: 70975439-a1c9-45d4-afaa-c083a261407f
+     */
+    readonly why_it_matters: Elements.RichTextElement<CoreContentType>;
+    /**
+     * FAQ Section
+     *
+     * Type: modular_content
+     * Required: false
+     * Codename: faq_section
+     * Id: fb7d0300-e1cd-4d79-9903-13c0a1fb4e4e
+     */
+    readonly faq_section: Elements.LinkedItemsElement<FAQSection>;
   },
   "event"
 >;
@@ -98,12 +146,17 @@ export type Event = CoreContentType<
  */
 export type EventElementCodenames =
   | "name"
+  | "instructor"
+  | "class_length"
+  | "course_level"
+  | "frequency"
   | "image"
   | "start_date"
   | "end_date"
-  | "event_type"
-  | "event_topic"
-  | "description";
+  | "description"
+  | "what_we_ll_cover"
+  | "why_it_matters"
+  | "faq_section";
 
 /**
  * Type guard for Event

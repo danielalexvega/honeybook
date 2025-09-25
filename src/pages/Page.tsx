@@ -12,7 +12,6 @@ import { Replace } from "../utils/types";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useCustomRefresh, useLivePreview } from "../context/SmartLinkContext";
 import { IRefreshMessageData, IRefreshMessageMetadata, IUpdateMessageData, applyUpdateOnItemAndLoadLinkedItems } from "@kontent-ai/smart-link";
-import { useSuspenseQueries } from "@tanstack/react-query";
 
 const usePage = (isPreview: boolean, lang: string | null, slug: string | null) => {
   const { environmentId, apiKey } = useAppContext();
@@ -68,7 +67,6 @@ const usePage = (isPreview: boolean, lang: string | null, slug: string | null) =
 };
 
 const Page: FC = () => {
-  const { environmentId, apiKey } = useAppContext();
   const [searchParams] = useSearchParams();
   const isPreview = searchParams.get("preview") === "true";
   const { slug } = useParams();
@@ -76,40 +74,16 @@ const Page: FC = () => {
 
   const page = usePage(isPreview, lang, slug ?? null);
 
-  const [pageData] = useSuspenseQueries({
-    queries: [
-      {
-        queryKey: ["page"],
-        queryFn: () =>
-          createClient(environmentId, apiKey, isPreview)
-            .items<Page>()
-            .type("page")
-            .limitParameter(1)
-            .equalsFilter("elements.url", slug ?? "")
-            .languageParameter((lang ?? "default") as LanguageCodenames)
-            .toPromise()
-            .then(res =>
-              res.data.items[0] as Replace<Page, { elements: Partial<Page["elements"]> }> ?? null
-            )
-            .catch((err) => {
-              if (err instanceof DeliveryError) {
-                return null;
-              }
-              throw err;
-            }),
-      },
-    ],
-  });
-
   const onRefresh = useCallback(
     (_: IRefreshMessageData, metadata: IRefreshMessageMetadata, originalRefresh: () => void) => {
       if (metadata.manualRefresh) {
         originalRefresh();
       } else {
-        pageData.refetch();
+        // The usePage hook handles its own data fetching, so we don't need to refetch here
+        // The live preview system will handle updates automatically
       }
     },
-    [page],
+    [],
   );
 
   useCustomRefresh(onRefresh);

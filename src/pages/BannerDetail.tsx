@@ -9,7 +9,6 @@ import { Replace } from "../utils/types";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useCustomRefresh, useLivePreview } from "../context/SmartLinkContext";
 import { IRefreshMessageData, IRefreshMessageMetadata, IUpdateMessageData, applyUpdateOnItemAndLoadLinkedItems } from "@kontent-ai/smart-link";
-import { useSuspenseQueries } from "@tanstack/react-query";
 import CallToActionComponent from "../components/CallToAction";
 import PageSection from "../components/PageSection";
 
@@ -64,7 +63,7 @@ const useBanner = (isPreview: boolean, lang: string | null, slug: string | null)
 };
 
 const BannerDetail: FC = () => {
-  const { environmentId, apiKey } = useAppContext();
+  // const { environmentId, apiKey } = useAppContext();
   const [searchParams] = useSearchParams();
   const isPreview = searchParams.get("preview") === "true";
   const { slug } = useParams();
@@ -72,37 +71,16 @@ const BannerDetail: FC = () => {
 
   const banner = useBanner(isPreview, lang, slug ?? null);
 
-  const [bannerData] = useSuspenseQueries({
-    queries: [
-      {
-        queryKey: ["banner"],
-        queryFn: () =>
-          createClient(environmentId, apiKey, isPreview)
-            .item<CallToAction>(slug ?? "")
-            .languageParameter((lang ?? "default") as LanguageCodenames)
-            .toPromise()
-            .then(res =>
-              res.data.item as Replace<CallToAction, { elements: Partial<CallToAction["elements"]> }> ?? null
-            )
-            .catch((err) => {
-              if (err instanceof DeliveryError) {
-                return null;
-              }
-              throw err;
-            }),
-      },
-    ],
-  });
-
   const onRefresh = useCallback(
     (_: IRefreshMessageData, metadata: IRefreshMessageMetadata, originalRefresh: () => void) => {
       if (metadata.manualRefresh) {
         originalRefresh();
       } else {
-        bannerData.refetch();
+        // The useBanner hook handles its own data fetching, so we don't need to refetch here
+        // The live preview system will handle updates automatically
       }
     },
-    [banner],
+    [],
   );
 
   useCustomRefresh(onRefresh);

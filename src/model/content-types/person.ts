@@ -6,9 +6,9 @@
 *  
 * -------------------------------------------------------------------------------
 * 
-* Project: Karma Health Demo
+* Project: Honeybook
 * Environment: Production
-* Id: d89e24b9-c2c4-0153-3e3b-8d8abd406750
+* Id: f58e1d39-d212-0043-310b-606736fbccb8
 * 
 * -------------------------------------------------------------------------------
 **/
@@ -17,7 +17,7 @@ import type { Elements } from "@kontent-ai/delivery-sdk";
 import type { CoreContentType } from "../system/index.ts";
 
 /**
- * Person
+ * ✏️ Person
  *
  * Id: d43f8c15-16cd-5732-b2f7-2023997187fc
  * Codename: person
@@ -44,24 +44,6 @@ export type Person = CoreContentType<
      */
     readonly last_name: Elements.TextElement;
     /**
-     * Prefix
-     *
-     * Type: text
-     * Required: false
-     * Codename: prefix
-     * Id: a4308aff-84ae-5d96-9f1f-5010be8a5278
-     */
-    readonly prefix: Elements.TextElement;
-    /**
-     * Suffixes
-     *
-     * Type: text
-     * Required: false
-     * Codename: suffixes
-     * Id: 20132f59-693c-4383-91da-e0e4fd47f183
-     */
-    readonly suffixes: Elements.TextElement;
-    /**
      * Biography
      *
      * Type: rich_text
@@ -74,7 +56,7 @@ export type Person = CoreContentType<
      * Image
      *
      * Type: asset
-     * Required: true
+     * Required: false
      * Codename: image
      * Id: 891ea65d-96ab-5530-a363-0cb6109554f2
      */
@@ -120,13 +102,11 @@ export type Person = CoreContentType<
 >;
 
 /**
- * Type representing all available element codenames for Person
+ * Type representing all available element codenames for ✏️ Person
  */
 export type PersonElementCodenames =
   | "first_name"
   | "last_name"
-  | "prefix"
-  | "suffixes"
   | "biography"
   | "image"
   | "job_title"
@@ -135,7 +115,7 @@ export type PersonElementCodenames =
   | "website";
 
 /**
- * Type guard for Person
+ * Type guard for ✏️ Person
  *
  * Id: d43f8c15-16cd-5732-b2f7-2023997187fc
  * Codename: person

@@ -16,8 +16,7 @@ import Selector, { SelectorOption } from "../components/Selector";
 import ImageWithTag from "../components/ImageWithTag";
 import Tags from "../components/Tags";
 import ButtonLink from "../components/ButtonLink";
-import { useSuspenseQueries } from "@tanstack/react-query";
-import { Replace } from "../utils/types";
+// import { Replace } from "../utils/types";
 
 type FeaturedArticleProps = Readonly<{
   image: {
@@ -27,13 +26,12 @@ type FeaturedArticleProps = Readonly<{
     height: number;
   };
   title: string;
-  published: string;
   tags: ReadonlyArray<string>;
   description: string;
   urlSlug: string;
   itemId: string;
 }>;
-const FeaturedArticle: React.FC<FeaturedArticleProps> = ({ image, title, published, tags, description, urlSlug, itemId }) => {
+const FeaturedArticle: React.FC<FeaturedArticleProps> = ({ image, title, tags, description, urlSlug, itemId }) => {
   return (
     <div className="flex flex-col lg:flex-row items-center pt-[104px] pb-[120px] gap-12"
     {...createItemSmartLink(itemId)}
@@ -51,7 +49,6 @@ const FeaturedArticle: React.FC<FeaturedArticleProps> = ({ image, title, publish
 
       <div className="lg:basis-1/2 xl:basis-3/5">
         <h2 className="text-heading-2 text-heading-2-color">{title}</h2>
-        <p className="text-body-md text-body-color pt-4">{published}</p>
         <Tags tags={tags} className="mt-4" />
         <p className="text-body-lg text-body-color pt-3">
           {description}
@@ -209,7 +206,7 @@ const useArticleTopics = (isPreview: boolean) => {
 };
 
 const ArticlesListingPage: React.FC = () => {
-  const { environmentId, apiKey } = useAppContext();
+  // const { environmentId, apiKey } = useAppContext();
   const [searchParams] = useSearchParams();
   const isPreview = searchParams.get("preview") === "true";
   const lang = searchParams.get("lang");
@@ -243,38 +240,16 @@ const ArticlesListingPage: React.FC = () => {
     }
   };
 
-  const [landingPageData] = useSuspenseQueries({
-    queries: [
-      {
-        queryKey: ["landing_page"],
-        queryFn: () =>
-          createClient(environmentId, apiKey, isPreview)
-            .items()
-            .type("landing_page")
-            .limitParameter(1)
-            .toPromise()
-            .then(res =>
-              res.data.items[0] as Replace<Page, { elements: Partial<Page["elements"]> }> ?? null
-            )
-            .catch((err) => {
-              if (err instanceof DeliveryError) {
-                return null;
-              }
-              throw err;
-            }),
-      },
-    ],
-  });
-
   const onRefresh = useCallback(
     (_: IRefreshMessageData, metadata: IRefreshMessageMetadata, originalRefresh: () => void) => {
       if (metadata.manualRefresh) {
         originalRefresh();
       } else {
-        landingPageData.refetch();
+        // The useArticlesListingPage hook handles its own data fetching, so we don't need to refetch here
+        // The live preview system will handle updates automatically
       }
     },
-    [articlesListingPage],
+    [],
   );
 
   useCustomRefresh(onRefresh);
@@ -339,7 +314,6 @@ const ArticlesListingPage: React.FC = () => {
               height: 440,
             }}
             title={featuredArticle.elements.title.value}
-            published={featuredArticle.elements.publish_date.value ?? ""}
             tags={featuredArticle.elements.topics.value.map(t => t.name)}
             description={featuredArticle.elements.introduction.value}
             urlSlug={featuredArticle.elements.url_slug.value}
@@ -396,7 +370,6 @@ const ArticlesListingPage: React.FC = () => {
                 },
                 title: article.elements.title.value,
                 introduction: article.elements.introduction.value,
-                publishDate: article.elements.publish_date.value ?? "",
                 topics: article.elements.topics.value.map(term => term.name),
                 urlSlug: article.elements.url_slug.value,
                 itemId: article.system.id,
