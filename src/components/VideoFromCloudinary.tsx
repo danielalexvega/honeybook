@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { CloudinaryAsset } from "../model";
 import { Replace } from "../utils/types";
-import { createItemSmartLink } from "../utils/smartlink";
+import { createSmartItemLink } from "../utils/smartlink";
 
 type VideoFromCloudinaryProps = {
     cloudinaryAsset: Replace<CloudinaryAsset, { elements: Partial<CloudinaryAsset["elements"]> }>;
@@ -90,7 +90,7 @@ const VideoFromCloudinary: FC<VideoFromCloudinaryProps> = ({
 
     return (
         <div className="flex flex-col items-center"
-            {...createItemSmartLink(componentId)}>
+            {...createSmartItemLink(componentId)}>
 
             {finalVideoUrl ? (
                 <figure className="w-full">

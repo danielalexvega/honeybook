@@ -22,21 +22,38 @@ export const SmartLinkContextComponent: FC<PropsWithChildren> = ({ children }) =
   const [smartLink, setSmartLink] = useState<KontentSmartLink | null>(null);
 
   useEffect(() => {
+    // Only initialize if we have an environment ID
+    if (!environmentId) {
+      console.warn('Smart Link: No environment ID provided');
+      return;
+    }
+
     // Get current language from URL params
     const urlParams = new URLSearchParams(window.location.search);
     const currentLang = urlParams.get("lang") || "default";
 
-    const instance = KontentSmartLink.initialize({
-      defaultDataAttributes: {
-        projectId: environmentId,
-        languageCodename: currentLang,
-      },
-    });
+    let instance: KontentSmartLink | null = null;
 
-    setSmartLink(instance);
+    try {
+      instance = KontentSmartLink.initialize({
+        defaultDataAttributes: {
+          projectId: environmentId,
+          languageCodename: currentLang,
+        },
+      });
+
+      setSmartLink(instance);
+    } catch (error) {
+      console.error('Failed to initialize Smart Link:', error);
+      setSmartLink(null);
+    }
 
     return () => {
-      instance?.destroy();
+      try {
+        instance?.destroy();
+      } catch (error) {
+        console.error('Error destroying Smart Link:', error);
+      }
       setSmartLink(null);
     };
   }, [environmentId]);
