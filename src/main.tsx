@@ -21,6 +21,7 @@ import LinkedInPreviewPage from "./pages/LinkedInPreviewPage.tsx";
 import NewsletterPreviewPage from "./pages/NewsletterPreviewPage.tsx";
 import Auth0ProviderWithRedirect from "./components/auth/AuthProviderWithRedirect.tsx";
 import { AppContextComponent } from "./context/AppContext.tsx";
+import { SmartLinkContextComponent } from "./context/SmartLinkContext.tsx";
 
 const queryClient = new QueryClient();
 
@@ -204,7 +205,9 @@ createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
       <Auth0ProviderWithRedirect>
         <AppContextComponent>
-          <RouterProvider router={router} />
+          <SmartLinkContextComponent>
+            <RouterProvider router={router} />
+          </SmartLinkContextComponent>
         </AppContextComponent>
       </Auth0ProviderWithRedirect>
     </QueryClientProvider>
