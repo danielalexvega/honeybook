@@ -7,7 +7,7 @@ type LinkedInPreviewProps = Readonly<{
   imageSrc?: string;
   imageAlt: string;
   componentId: string;
-  componentName: string;
+
 }>;
 
 const LinkedInPreview: React.FC<LinkedInPreviewProps> = React.memo(({
@@ -16,7 +16,7 @@ const LinkedInPreview: React.FC<LinkedInPreviewProps> = React.memo(({
   imageSrc,
   imageAlt,
   componentId,
-  componentName,
+
 }) => {
   // Truncate description for LinkedIn post format (around 1300 characters)
   const truncatedDescription = description.length > 200 
@@ -41,7 +41,7 @@ const LinkedInPreview: React.FC<LinkedInPreviewProps> = React.memo(({
       {/* LinkedIn Post Content */}
       <div 
         className="p-4"
-        {...createItemSmartLink(componentId, componentName)}
+        {...createItemSmartLink(componentId)}
       >
         <div className="mb-4">
           <h2 

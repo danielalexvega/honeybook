@@ -7,10 +7,9 @@ import { getYouTubeEmbedUrl, isYouTubeUrl } from "../utils/youtube";
 type VideoProps = {
   video: Replace<VideoType, { elements: Partial<VideoType["elements"]> }>;
   componentId: string;
-  componentName: string;
 };
 
-const VideoComponent: FC<VideoProps> = ({ video, componentId, componentName }) => {
+const VideoComponent: FC<VideoProps> = ({ video, componentId }) => {
   const videoUrl = video.elements.video_link?.value;
   const shouldAutoplay = video.elements.autoplay?.value[0]?.codename === "true";
 
@@ -21,7 +20,7 @@ const VideoComponent: FC<VideoProps> = ({ video, componentId, componentName }) =
 
   return (
     <div className="flex flex-col items-center py-16"
-      {...createItemSmartLink(componentId, componentName)}>
+      {...createItemSmartLink(componentId)}>
       <h2 className="text-azure text-[40px] md:text-[64px] leading-[54px] w-2/4 text-center"
         {...createElementSmartLink("headline")}>
         {video.elements.headline?.value}

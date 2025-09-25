@@ -60,7 +60,6 @@ const NewsletterPreviewPageContent: FC = () => {
           imageSrc={banner.elements.image?.value?.[0]?.url}
           imageAlt={banner.elements.image?.value?.[0]?.description ?? "Newsletter banner image"}
           componentId={banner.system.id}
-          componentName={banner.system.name}
         />
       </div>
     </div>

@@ -25,7 +25,6 @@ const CallToActionComponent: React.FC<CallToActionProps> = ({
   imagePosition = "left",
   style = "default",
   componentId,
-  componentName,
 }) => {
   const calculateLayout = (imagePosition: "left" | "right" | "center") => {
     if (imagePosition === "left") {
@@ -39,7 +38,7 @@ const CallToActionComponent: React.FC<CallToActionProps> = ({
   return (
     <div
       className={`${style === "burgundy" ? "burgundy-theme" : ""} w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] px-4 lg:px-8 xl:px-16`}
-      {...createItemSmartLink(componentId, componentName)}
+      {...createItemSmartLink(componentId)}
     >
       <div className="max-w-7xl mx-auto">
         <div

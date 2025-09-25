@@ -101,7 +101,6 @@ const LandingPage: FC = () => {
         <VideoFromCloudinary
           cloudinaryAsset={landingPage.elements.cloudinary_video.linkedItems[0]}
           componentId={landingPage.system.id}
-          componentName="Cloudinary Video"
           shouldAutoplay={true}
         />
       )}

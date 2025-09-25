@@ -22,10 +22,14 @@ export const SmartLinkContextComponent: FC<PropsWithChildren> = ({ children }) =
   const [smartLink, setSmartLink] = useState<KontentSmartLink | null>(null);
 
   useEffect(() => {
+    // Get current language from URL params
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentLang = urlParams.get("lang") || "default";
+
     const instance = KontentSmartLink.initialize({
       defaultDataAttributes: {
         projectId: environmentId,
-        languageCodename: "default",
+        languageCodename: currentLang,
       },
     });
 

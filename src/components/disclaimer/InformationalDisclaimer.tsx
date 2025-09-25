@@ -5,11 +5,10 @@ type InformationalDisclaimerProps = Readonly<{
   title: string;
   text: string;
   componentId: string;
-  componentName: string;
 }>;
 
-const InformationalDisclaimer: React.FC<InformationalDisclaimerProps> = ({ title, text, componentId, componentName }) => (
-  <DisclaimerBase title={title} text={text} theme="base" componentId={componentId} componentName={componentName} />
+const InformationalDisclaimer: React.FC<InformationalDisclaimerProps> = ({ title, text, componentId }) => (
+  <DisclaimerBase title={title} text={text} theme="base" componentId={componentId} />
 );
 
 export default InformationalDisclaimer;

@@ -58,7 +58,6 @@ const LinkedInPreviewPageContent: FC = () => {
           imageSrc={banner.elements.image?.value?.[0]?.url}
           imageAlt={banner.elements.image?.value?.[0]?.description ?? "Banner image"}
           componentId={banner.system.id}
-          componentName={banner.system.name}
         />
       </div>
     </div>

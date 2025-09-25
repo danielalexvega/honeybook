@@ -9,7 +9,6 @@ type NewsletterPreviewProps = Readonly<{
   imageSrc?: string;
   imageAlt: string;
   componentId: string;
-  componentName: string;
 }>;
 
 const NewsletterPreview: React.FC<NewsletterPreviewProps> = React.memo(({
@@ -20,7 +19,6 @@ const NewsletterPreview: React.FC<NewsletterPreviewProps> = React.memo(({
   imageSrc,
   imageAlt,
   componentId,
-  componentName,
 }) => {
   return (
     <div className="max-w-2xl mx-auto bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
@@ -51,7 +49,7 @@ const NewsletterPreview: React.FC<NewsletterPreviewProps> = React.memo(({
       {/* Newsletter Content */}
       <div 
         className="p-6"
-        {...createItemSmartLink(componentId, componentName)}
+        {...createItemSmartLink(componentId)}
       >
         {/* Newsletter Hero Section */}
         <div className="text-center mb-8">

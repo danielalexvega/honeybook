@@ -1,12 +1,36 @@
-export const createItemSmartLink = (itemId: string | undefined, itemName?: string | undefined, disableHighlight = false) => (itemId && itemName && itemId.replace(/-/g, "_") !== itemName.replace(/-/g, "_")) ? withDisable(disableHighlight, {
-  "data-kontent-item-id": itemId,
-}) : withDisable(disableHighlight, {
-  [!itemName ? "data-kontent-item-id" : "data-kontent-component-id"]: itemId,
-});
+export const createItemSmartLink = (itemId: string | undefined, disableHighlight = false, languageCodename?: string) => {
+  if (!itemId) return {};
+  
+  const attributes: Record<string, string> = {
+    "data-kontent-item-id": itemId,
+  };
+  
+  if (languageCodename) {
+    attributes["data-kontent-language-codename"] = languageCodename;
+  }
+  
+  return withDisable(disableHighlight, attributes);
+};
 
-export const createElementSmartLink = (elementCodename: string, disableHighlight: boolean = false) => withDisable(disableHighlight, {
-  "data-kontent-element-codename": elementCodename
-});
+export const createElementSmartLink = (elementCodename: string, disableHighlight: boolean = false, languageCodename?: string) => {
+  const attributes: Record<string, string> = {
+    "data-kontent-element-codename": elementCodename
+  };
+  
+  if (languageCodename) {
+    attributes["data-kontent-language-codename"] = languageCodename;
+  }
+  
+  return withDisable(disableHighlight, attributes);
+};
+
+export const createComponentSmartLink = (componentId: string | undefined, disableHighlight = false) => {
+  if (!componentId) return {};
+  
+  return withDisable(disableHighlight, {
+    "data-kontent-component-id": componentId,
+  });
+};
 
 export const createFixedAddSmartLink = (position: "start" | "end", renderPosition?: RenderPosition) => ({
   "data-kontent-add-button": true,

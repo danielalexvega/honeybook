@@ -6,7 +6,6 @@ import { createItemSmartLink } from "../utils/smartlink";
 type VideoFromCloudinaryProps = {
     cloudinaryAsset: Replace<CloudinaryAsset, { elements: Partial<CloudinaryAsset["elements"]> }>;
     componentId: string;
-    componentName: string;
     shouldAutoplay?: boolean;
 };
 
@@ -27,7 +26,6 @@ type CloudinaryVideoData = {
 const VideoFromCloudinary: FC<VideoFromCloudinaryProps> = ({
     cloudinaryAsset,
     componentId,
-    componentName,
     shouldAutoplay: propShouldAutoplay
 }) => {
     // Extract the video URL from the custom element
@@ -92,7 +90,7 @@ const VideoFromCloudinary: FC<VideoFromCloudinaryProps> = ({
 
     return (
         <div className="flex flex-col items-center"
-            {...createItemSmartLink(componentId, componentName)}>
+            {...createItemSmartLink(componentId)}>
 
             {finalVideoUrl ? (
                 <figure className="w-full">
