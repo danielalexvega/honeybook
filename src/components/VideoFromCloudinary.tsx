@@ -72,7 +72,7 @@ const VideoFromCloudinary: FC<VideoFromCloudinaryProps> = ({
 
             const transformString = transformations.length > 0 ? transformations.join(',') + '/' : '';
             // Use the cloud name from the existing URL or fallback to environment variable
-            const cloudName = parsedVideoData?.url?.match(/res\.cloudinary\.com\/([^\/]+)/)?.[1] ||
+            const cloudName = parsedVideoData?.url?.match(/res\.cloudinary\.com\/([^/]+)/)?.[1] ||
                 import.meta.env.VITE_CLOUDINARY_CLOUD_NAME ||
                 'your-cloud-name';
             return `https://res.cloudinary.com/${cloudName}/video/upload/${transformString}${parsedVideoData.public_id}`;
