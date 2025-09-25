@@ -19,6 +19,8 @@ import Page from "./pages/Page.tsx";
 import BannerDetail from "./pages/BannerDetail.tsx";
 import LinkedInPreviewPage from "./pages/LinkedInPreviewPage.tsx";
 import NewsletterPreviewPage from "./pages/NewsletterPreviewPage.tsx";
+import Auth0ProviderWithRedirect from "./components/auth/AuthProviderWithRedirect.tsx";
+import { AppContextComponent } from "./context/AppContext.tsx";
 
 const queryClient = new QueryClient();
 
@@ -200,7 +202,11 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <Auth0ProviderWithRedirect>
+        <AppContextComponent>
+          <RouterProvider router={router} />
+        </AppContextComponent>
+      </Auth0ProviderWithRedirect>
     </QueryClientProvider>
   </StrictMode>,
 );
